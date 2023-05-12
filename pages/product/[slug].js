@@ -21,23 +21,23 @@ export default function product({ country, product }) {
       <Head>
         <title>{product.name}</title>
       </Head>
-      {/*<Header country="" />*/}
+      <Header country="" />
       <div className={styles.product}>
         <div className={styles.product__container}>
-          {/*<div className={styles.path}>
+          <div className={styles.path}>
             Home / {product.category.name}
             {product.subCategories.map((sub) => (
               <span>/{sub.name}</span>
             ))}
-            </div>*/}
+          </div>
           <div className={styles.product__main}>
-            {/*<MainSwiper images={product.images} activeImg={activeImg} />*/}
+            <MainSwiper images={product.images} activeImg={activeImg} />
             <Infos product={product} setActiveImg={setActiveImg} />
           </div>
           <Reviews product={product} />
         </div>
       </div>
-      {/*<Footer country="" />*/}
+      <Footer country="" />
     </div>
   );
 }

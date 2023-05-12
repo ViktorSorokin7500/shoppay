@@ -6,15 +6,11 @@ import GitHubProvider from "next-auth/providers/github";
 import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-
 import clientPromise from "./lib/mongodb";
 import User from "../../../models/User";
-
 import bcrypt from "bcrypt";
-
 import db from "../../../utils/db";
 db.connectDb();
-
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -28,7 +24,6 @@ export default NextAuth({
         const email = credentials.email;
         const password = credentials.password;
         const user = await User.findOne({ email });
-
         if (user) {
           return SignInUser({ password, user });
         } else {
@@ -61,8 +56,9 @@ export default NextAuth({
   callbacks: {
     async session({ session, token }) {
       let user = await User.findById(token.sub);
-      session.user.id = token.sub || user._id.toString();
+      session.user.id = token.sub || user._id.toSting();
       session.user.role = user.role || "user";
+      token.role = user.role || "user";
       return session;
     },
   },
